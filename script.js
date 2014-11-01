@@ -12,12 +12,25 @@ fb.on('child_added', function(snapshot) {
 });
 
 $(document).ready(function(){
-  $("#Login").click(function() {
+  $("#loginWithGoogle").click(function() {
     login("google");
+  });
+  $("#loginWithGithub").click(function() {
+    login("github");
+  });
+  $("#loginWithTwitter").click(function() {
+    login("twitter");
+  });
+  $("#loginWithFacebook").click(function() {
+    login("facebook");
+  });
+  $("#logout").click(function() {
+    fb.unauth();
   });
   //Account Check
   if(authData){
-    $("#Login").hide();
+    $("#loginSection").hide();
+    $("logout").show();
     accountType = authData.provider;
     //Go through possible account types
     switch (accountType){
@@ -26,23 +39,67 @@ $(document).ready(function(){
         userEmail = authData.google.email;
         displayAccountInfo();
         break;
-      }
+      case "github":
+        userName = authData.github.username;
+        userEmail = authData.github.email;
+        displayAccountInfo();
+      case "twitter":
+        userName = authData.twitter.displayName;
+        userEmail = "Twitter does not let us access email";
+        displayAccountInfo();
+      case "facebook":
+        userName = authData.facebook.displayName;
+        userEmail = authData.facebook.email;
+        displayAccountInfo();
+      default :
+        $("logout").hide();
+    }
   }
   else{
-    alert("failed");
+    $("#loginSection").show();
+    $("logout").hide();
   }
 })
 
 function login(accountSys){
-  if (accountSys == "google") {
-    fb.authWithOAuthRedirect("google", function(error, authInfo) {
-      if(error){
-        alert(error);
-      }
-    }, {
-      remember: "sessionOnly",
-      scope: "email"
-    });
+  switch (accountSys){
+    case "google":
+      fb.authWithOAuthRedirect("google", function(error, authInfo) {
+        if(error){
+          alert(error);
+        }
+      }, {
+        remember: "sessionOnly",
+        scope: "email"
+      });
+      break;
+    case "github":
+      fb.authWithOAuthRedirect("github", function(error, authInfo) {
+        if(error){
+          alert(error);
+        }
+      }, {
+        remember: "sessionOnly",
+        scope: "user"
+      });
+      break;
+    case "twitter":
+      fb.authWithOAuthRedirect("twitter", function(error, authInfo) {
+        if(error){
+          alert(error);
+        }
+      }, {
+        remember: "sessionOnly"
+      });
+    case "facebook":
+      fb.authWithOAuthRedirect("twitter", function(error, authInfo) {
+        if(error){
+          alert(error);
+        }
+      }, {
+        remember: "sessionOnly",
+        scope: "email, public_profile"
+      });
   }
 }
 
