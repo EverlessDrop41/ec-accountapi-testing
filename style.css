@@ -1,0 +1,111 @@
+body{
+	background-color: #ededed;
+	padding:0px !important;
+	margin:0px !important;
+  font-family: Roboto, sans-serif;
+}
+#Titlebox{
+  float: center;
+	margin: auto;
+	background-color: #03a9f4;
+  width: 100%;
+	padding-top: 1em;
+	padding-bottom: 1em;
+  padding-left: 1em;
+}
+    #Title {
+    	margin: 0px;
+    	font-family: Comfortaa,cursive;
+    	color: #fafafa;
+    	font-size: 4em;
+    	padding-left: 10px;
+    }
+    #subTitle{
+      margin: 0px;
+      font-family: Comfortaa,cursive;
+      color: #fafafa;
+      font-size: 2em;
+      padding-left: 10px;
+    }
+p, #accountDisplayer, .messageField, .message, #footer  {
+  color: #545454;
+  font-size: 1.5em;
+  font-family: Roboto, sans-serif;
+  line-height: 1em;
+  text-align: center;
+  padding: 10px;
+}
+#accountDisplayer {
+  margin: 10px;
+  width: 100%;
+}
+    #accountDisplayer {
+      text-align: left;
+    }
+    button {
+      color: #fafafa;
+      background-color: #03a9f4;
+      border-width: 0px;
+      font-family: Roboto, sans-serif;
+      font-size: 1em;
+      padding: 20px;
+      margin: 10px;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      border-radius: 5px;
+      width: auto;
+      height: 100%;
+    }
+    .button{
+      background-color: #0696cf;
+    }
+#inputSection{
+  margin: 10px;
+  width: 100%;
+}
+.messageField {
+  width: 90%;
+  text-align: left;
+  border-width: 0px;
+  border-bottom-width: 2px;
+  border-bottom-color: #1177ff;
+  background-color: #ededed;
+  font-size: 1.5em;
+  padding: 0px;
+  margin: 10px;
+}
+#sendButton{
+  font-size: 1.5em;
+}
+#allMessagesBox{
+  margin-top: 5px;
+  margin-bottom: 10px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+.message{
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #bdbdbd;
+  text-align: left;
+}
+#footer{
+  font-size: 1em;
+}
+#footer a {
+  color: #3c9cd3;
+  text-decoration: none;
+}
+#footer a:hover {
+    text-decoration: underline;
+}
+#accountInfo {
+    margin: 15px;
+    float: left;
+    color: #545454;
+    font-size: 1.5em;
+}
+
+#logout {
+    font-size:1.5em;
+}

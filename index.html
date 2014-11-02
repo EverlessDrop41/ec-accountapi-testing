@@ -2,22 +2,34 @@
 <html>
   <head>
     <title>Google Login Firebase</title>
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto|Comfortaa' rel='stylesheet' type='text/css'>
+    <!--Stylesheets-->
     <link rel="stylesheet" type="text/css" href="style.css">
+    <!--APIs-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
-    <script src="script.js"></script>
+    <!--Code-->
+    <script src="messageHandler.js"></script>
+    <script src="accountSystem.js"></script>
   </head>
   <body>
+    <div id="Titlebox">
+        <h1 id="Title">Everlessly Chatting</h1>
+        <h3 id="subTitle">A realtime messenger</h3>
+    </div>
     <div id="loginSection">
         <button id="loginWithGoogle">Login with Google</button>
         <button id="loginWithGithub">Login with Github</button>
         <button id="loginWithTwitter">Login with Twitter</button>
         <button id="loginWithFacebook">Login with Facebook</button>
     </div>
+    <div id="accountInfo"></div>
     <button id="logout">Logout</button>
-    <div id="accountInfo">
-    </div>
     <br>
+    <div id="messageInput"> 
+        <input type="text" placeholder="Message" class="messageField" id="messageInput"></input><button id="sendButton">Submit</button>
+    </div>
     <div id="messageBox">
     </div>
   </body>
