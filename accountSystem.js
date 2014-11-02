@@ -34,7 +34,7 @@ function accountCheck(){
         //User is logged in
         $("#accountInfo").show();
         $("#loginSection").hide();
-        $("#messageInput").show();
+        $("#messageInputArea").show();
         $("#logout").show();
         accountType = authData.provider;
         console.log(accountType);
@@ -65,7 +65,7 @@ function accountCheck(){
     }
     else{
         $("#loginSection").show();
-        $("#messageInput").hide();
+        $("#messageInputArea").hide();
         $("#logout").hide();
         $("#accountInfo").hide();
     }

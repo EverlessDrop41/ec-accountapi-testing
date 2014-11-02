@@ -17,7 +17,6 @@ $(document).ready(function(){
     function submitMessageToFireBase(){
         var name = userName;
         var text = $("#messageInput").val().trim();
-        alert(text);
         isNameValid = isValidMsg(name);
         isMsgValid = isValidMsg(text);
         if (isNameValid && isMsgValid) {
