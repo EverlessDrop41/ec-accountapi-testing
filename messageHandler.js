@@ -35,12 +35,14 @@ $(document).ready(function(){
 
 fb.on('child_added', function(snapshot) {
     var message = snapshot.val();
-    displayChatMessage(message.name, message.text);
+    if (!(message.name == undefined || message.text == undefined)){
+        displayChatMessage(message.name, message.text);
+    }
 });
 
 function displayChatMessage(name, text) {
-  $messageToDisplay = "<div class='message'> <em class='userNameDisplayer'>" + name + "</em>  :" + "&#9;&#9;&#9;" + text + "</div>";
-  $('#messageBox').prepend($messageToDisplay);
+    $messageToDisplay = "<div class='message'> <em class='userNameDisplayer'>" + name + "</em>  :" + "&#9;&#9;&#9;" + text + "</div>";
+    $('#messageBox').prepend($messageToDisplay);
 };
 
 function isValidMsg(msg) {

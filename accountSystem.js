@@ -1,5 +1,32 @@
 var fb = new Firebase("https://everlesslychatting.firebaseio.com/");
+var userBase = new Firebase("https://everlesslychatting.firebaseio.com/users");
 var authData = fb.getAuth();
+
+/*
+An account in JSON
+
+The user's name is their email with all dots removed
+
+"test@testcom": {
+    "googleUid": "G00g1e",
+    "facebookUid": "Fac3b00k",
+    "twitterUid": "Twitt3r",
+    "githubUid": "G1thu|3",
+    "messages": {
+        "m1": {
+            "from": "bill",
+            "message": "hello"
+        }
+    },
+    "sent": {
+        "s1": {
+            "to": "bill",
+            "message": "Wellhowdythere"
+        }
+    }
+}
+
+*/
 
 var userName = "";
 var userEmail = "";
@@ -38,25 +65,49 @@ function accountCheck(){
         $("#logout").show();
         accountType = authData.provider;
         console.log(accountType);
+        console.log(authData.uid);
         switch (accountType){
           case "google":
             userName = authData.google.displayName;
             userEmail = authData.google.email;
+            //Check account with account database
+            if (userBase.child(userEmail.toString())){
+                //Account exists
+            }
+            else {
+                //Account doesn't exist
+            }
             displayAccountInfo();
             break;
           case "github":
             userName = authData.github.username;
             userEmail = authData.github.email;
+            //Check account with account database
+            if (userBase.child(userEmail.toString())){
+                //Account exists
+            }
+            else {
+                //Account doesn't exist
+            }
             displayAccountInfo();
             break;
           case "twitter":
+            /*
             userName = authData.twitter.displayName;
             userEmail = "Twitter does not let us access email";
             displayAccountInfo();
+            */
             break;
           case "facebook":
             userName = authData.facebook.displayName;
             userEmail = authData.facebook.email;
+            //Check account with account database
+            if (userBase.child(userEmail.toString())){
+                //Account exists
+            }
+            else {
+                //Account doesn't exist
+            }
             displayAccountInfo();
             break;
           default :
@@ -94,6 +145,8 @@ function login(accountSys){
       });
       break;
     case "twitter":
+          alert("Due to lack of email access we are removing twitter login for now");
+    /*
       fb.authWithOAuthRedirect("twitter", function(error, authInfo) {
         if(error){
           alert(error);
@@ -101,6 +154,7 @@ function login(accountSys){
       }, {
         remember: "sessionOnly"
       });
+    */
       break;
     case "facebook":
       fb.authWithOAuthRedirect("facebook", function(error, authInfo) {

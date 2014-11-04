@@ -1,0 +1,20 @@
+{
+    "test@testcom": {
+        "googleUid": "G00g1e",
+        "facebookUid": "Fac3b00k",
+        "twitterUid": "Twitt3r",
+        "githubUid": "G1thu|3",
+        "messages": {
+            "m1": {
+                "from": "bill",
+                "message": "hello"
+            }
+        },
+        "sent": {
+            "s1": {
+                "to": "bill",
+                "message": "Wellhowdythere"
+            }
+        }
+    }
+}
