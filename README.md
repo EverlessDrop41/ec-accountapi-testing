@@ -1,4 +1,4 @@
 ec-accountapi-testing
 =====================
 
-A simple test with firebase account api
+This is the repository for the crrent dev version of Everlessly chatting, which is available on my Githb Profile
