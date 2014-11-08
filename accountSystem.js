@@ -157,19 +157,16 @@ function updateAccount(email,valueToUpdate,data){
 }
 
 function checkDefaultAccount(forceOveride, accountType, email){
-    var dataExists = false;
+    var dataExists = true;
     if (forceOveride === true){
         userBase.child(email).update({"defaultAccount": accountType});  
     }
     else {
         userBase.child(email).child("defaultAccount").once('value',function(snapshot){
-            console.log(snapshot.val());
-            dataExists = (snapshot.val() != null);
+            if (snapshot.val() == null){
+                userBase.child(email).update({"defaultAccount": accountType});
+            }
         });
-        console.log(dataExists);
-        if (!dataExists){
-            userBase.child(email).update({"defaultAccount": accountType});
-        }
     }
 }
 
