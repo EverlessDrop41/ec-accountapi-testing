@@ -30,14 +30,11 @@ $(document).ready(function(){
   $("#loginWithGoogle").click(function() {
     login("google");
   });
-  $("#loginWithGithub").click(function() {
-    login("github");
-  });
-  $("#loginWithTwitter").click(function() {
-    login("twitter");
-  });
   $("#loginWithFacebook").click(function() {
     login("facebook");
+  });
+  $("#loginWithGithub").click(function() {
+    login("github");
   });
   $("#logout").click(function() {
     fb.unauth();
@@ -53,18 +50,21 @@ function accountCheck(){
         $("#messageInputArea").show();
         $("#logout").show();
         accountType = authData.provider;
-        console.log(accountType);
-        console.log(authData.uid);
         switch (accountType){
           case "google":
             userName = authData.google.displayName;
             userEmail = authData.google.email;
+            userBaseEmail = convertEmail(userEmail.toString());
+            userId = authData.google.id;
             //Check account with account database
-            if (userBase.child(convertEmail(userEmail.toString()))){
-                //Account exists
+            if (userBase.child(userBaseEmail)){
+                currentAccount = userBase.child(userBaseEmail);
+                updateAccount(userBaseEmail, "google", userId);
             }
             else {
-                //Account doesn't exist
+                currentAccount = userBase.child(userBaseEmail);
+                console.log("Creating account");
+                createAccount(userBaseEmail,userId,0,0);
             }
             displayAccountInfo();
             break;
@@ -80,16 +80,11 @@ function accountCheck(){
             }
             displayAccountInfo();
             break;
-          case "twitter":
-            /*
-            userName = authData.twitter.displayName;
-            userEmail = "Twitter does not let us access email";
-            displayAccountInfo();
-            */
-            break;
           case "facebook":
             userName = authData.facebook.displayName;
             userEmail = authData.facebook.email;
+            userBaseEmail = convertEmail(userEmail.toString());
+            userId = authData.facebook.id;
             //Check account with account database
             if (userBase.child(convertEmail(userEmail.toString()))){
                 //Account exists
@@ -130,6 +125,7 @@ function convertEmail(emailAdr){
     }
 }
 
+/* Create Account
 function createAccount(userEmail,googleUid,facebookUid,githubUid){
     if(!convertEmail(userEmail)){
         return false;
@@ -143,9 +139,26 @@ function createAccount(userEmail,googleUid,facebookUid,githubUid){
         facebookId: facebookUid,
         githubId: githubUid
     });
-}
+}*/
 
-function updateAccount(){
+function updateAccount(email,valueToUpdate,data){
+    email = convertEmail(email);
+    userAccount = userBase.child(email);
+    switch (valueToUpdate.toLowerCase()){
+        case "g":
+        case "google":
+            userAccount.update({"googleId":data});
+            break;
+        case "f":
+        case "fb":
+        case "facebook":
+            userAccount.update({"facebookId":data});
+            break;
+        case "gh":
+        case "github":
+            userAccount.update({"githubId":data});
+            break;
+    }
 }
 
 function login(accountSys){
@@ -156,7 +169,6 @@ function login(accountSys){
           alert(error);
         }
       }, {
-        remember: "sessionOnly",
         scope: "email"
       });
       break;
@@ -166,21 +178,8 @@ function login(accountSys){
           alert(error);
         }
       }, {
-        remember: "sessionOnly",
         scope: "user"
       });
-      break;
-    case "twitter":
-          alert("Due to lack of email access we are removing twitter login for now");
-    /*
-      fb.authWithOAuthRedirect("twitter", function(error, authInfo) {
-        if(error){
-          alert(error);
-        }
-      }, {
-        remember: "sessionOnly"
-      });
-    */
       break;
     case "facebook":
       fb.authWithOAuthRedirect("facebook", function(error, authInfo) {
@@ -188,7 +187,6 @@ function login(accountSys){
           alert(error);
         }
       }, {
-        remember: "sessionOnly",
         scope: "email, public_profile"
       });
       break;      
@@ -197,6 +195,5 @@ function login(accountSys){
 
 function displayAccountInfo(){
   accountData = "Hello " + userName + " you are logged in using " + accountType + ".";
-  console.log(accountData);
   $("#accountInfo").text(accountData);
 }
