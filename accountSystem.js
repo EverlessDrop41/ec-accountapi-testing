@@ -52,46 +52,41 @@ function accountCheck(){
         accountType = authData.provider;
         switch (accountType){
           case "google":
+            //Assign some data from the auth
             userName = authData.google.displayName;
             userEmail = authData.google.email;
             userBaseEmail = convertEmail(userEmail.toString());
             userId = authData.google.id;
-            //Check account with account database
-            if (userBase.child(userBaseEmail)){
-                currentAccount = userBase.child(userBaseEmail);
-                updateAccount(userBaseEmail, "google", userId);
-            }
-            else {
-                currentAccount = userBase.child(userBaseEmail);
-                console.log("Creating account");
-                createAccount(userBaseEmail,userId,0,0);
-            }
+            //Log the account into the database
+            currentAccount = userBase.child(userBaseEmail);
+            updateAccount(userBaseEmail, "google", userId);
+            checkDefaultAccount(false, "google", userBaseEmail);
+            //Display our data
             displayAccountInfo();
             break;
           case "github":
             userName = authData.github.username;
             userEmail = authData.github.email;
-            //Check account with account database
-            if (userBase.child(convertEmail(userEmail.toString()))){
-                //Account exists
-            }
-            else {
-                //Account doesn't exist
-            }
+            userBaseEmail = convertEmail(userEmail.toString());
+            userId = authData.github.id;
+            //Log the account into the database
+            currentAccount = userBase.child(userBaseEmail);
+            updateAccount(userBaseEmail, "github", userId);
+            checkDefaultAccount(false, "github", userBaseEmail);
+            //Display our data
             displayAccountInfo();
             break;
           case "facebook":
+            //Assign data form our auth
             userName = authData.facebook.displayName;
             userEmail = authData.facebook.email;
             userBaseEmail = convertEmail(userEmail.toString());
             userId = authData.facebook.id;
-            //Check account with account database
-            if (userBase.child(convertEmail(userEmail.toString()))){
-                //Account exists
-            }
-            else {
-                //Account doesn't exist
-            }
+            //Log the account into the database
+            currentAccount = userBase.child(userBaseEmail);
+            updateAccount(userBaseEmail, "facebook", userId);
+            checkDefaultAccount(false, "facebook", userBaseEmail);
+            //Display our data
             displayAccountInfo();
             break;
           default :
@@ -158,6 +153,23 @@ function updateAccount(email,valueToUpdate,data){
         case "github":
             userAccount.update({"githubId":data});
             break;
+    }
+}
+
+function checkDefaultAccount(forceOveride, accountType, email){
+    var dataExists = false;
+    if (forceOveride === true){
+        userBase.child(email).update({"defaultAccount": accountType});  
+    }
+    else {
+        userBase.child(email).child("defaultAccount").once('value',function(snapshot){
+            console.log(snapshot.val());
+            dataExists = (snapshot.val() != null);
+        });
+        console.log(dataExists);
+        if (!dataExists){
+            userBase.child(email).update({"defaultAccount": accountType});
+        }
     }
 }
 
