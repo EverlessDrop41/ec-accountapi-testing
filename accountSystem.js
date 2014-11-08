@@ -1,5 +1,5 @@
 var fb = new Firebase("https://everlesslychatting.firebaseio.com/");
-var userBase = new Firebase("https://everlesslychatting.firebaseio.com/users");
+var userBase = fb.child("users");
 var authData = fb.getAuth();
 
 /*
@@ -11,18 +11,7 @@ The user's name is their email with all dots removed
     "googleUid": "G00g1e",
     "facebookUid": "Fac3b00k",
     "twitterUid": "Twitt3r",
-    "githubUid": "G1thu|3",
-    "messages": {
-        "m1": {
-            "from": "bill",
-            "message": "hello"
-        }
-    },
-    "sent": {
-        "s1": {
-            "to": "bill",
-            "message": "Wellhowdythere"
-        }
+    "githubUid": "G1thu|3"
     }
 }
 
@@ -32,7 +21,7 @@ var userName = "";
 var userEmail = "";
 var accountType = "";
 
-fb.onAuth(function(authInfo){
+fb.onAuth(function (authInfo ) {
     authData = fb.getAuth();
     accountCheck();
 });
@@ -71,7 +60,7 @@ function accountCheck(){
             userName = authData.google.displayName;
             userEmail = authData.google.email;
             //Check account with account database
-            if (userBase.child(userEmail.toString())){
+            if (userBase.child(convertEmail(userEmail.toString()))){
                 //Account exists
             }
             else {
@@ -83,7 +72,7 @@ function accountCheck(){
             userName = authData.github.username;
             userEmail = authData.github.email;
             //Check account with account database
-            if (userBase.child(userEmail.toString())){
+            if (userBase.child(convertEmail(userEmail.toString()))){
                 //Account exists
             }
             else {
@@ -102,7 +91,7 @@ function accountCheck(){
             userName = authData.facebook.displayName;
             userEmail = authData.facebook.email;
             //Check account with account database
-            if (userBase.child(userEmail.toString())){
+            if (userBase.child(convertEmail(userEmail.toString()))){
                 //Account exists
             }
             else {
@@ -120,6 +109,43 @@ function accountCheck(){
         $("#logout").hide();
         $("#accountInfo").hide();
     }
+}
+
+function convertEmail(emailAdr){
+    if (!(emailAdr.constructor === String)) {
+        return false;
+    }
+    else {
+        var outputStr = "";
+        for(var i = 0; i < emailAdr.length; i++){
+            letter = emailAdr.charAt(i);
+            if (letter === "."){
+                outputStr += "";
+            }
+            else{
+                outputStr += letter;
+            }
+        }
+        return (outputStr);
+    }
+}
+
+function createAccount(userEmail,googleUid,facebookUid,githubUid){
+    if(!convertEmail(userEmail)){
+        return false;
+    }
+    else {
+        userEmail = convertEmail(userEmail);
+    }
+    var userAccount = userBase.child(userEmail);
+    userAccount.set({
+        googleId: googleUid,
+        facebookId: facebookUid,
+        githubId: githubUid
+    });
+}
+
+function updateAccount(){
 }
 
 function login(accountSys){
