@@ -145,12 +145,16 @@ p, #accountDisplayer, .messageField, .message, #footer  {
     }
 
 #details {
-    width: 60%;
+    width: 45%;
     float: left;
 }
 
 #mainContent {
     padding: 1%;
+    padding-left: 0px;
+    padding-right: 0px;
+    width: 100%;
+    float: left;
 }
 
 .Title {
@@ -163,17 +167,18 @@ p, #accountDisplayer, .messageField, .message, #footer  {
 }
 
 .infoBox {
-    margin-left: 10%;
-    margin-right: 10%;
-    padding: 5px;
+    width: 88%;
+    margin-left: 5%;
+    padding-top: 5px;
     margin-top: 30px;
     clear: both;
     float: left;
 }
     .infoBox .Title {
         padding: 5px;
+        text-align: left;
         font-family: "Roboto", sans-serif;
-        font-size: 3.5em;
+        font-size: 3em;
     }
     
     .infoBox img{
@@ -188,3 +193,37 @@ p, #accountDisplayer, .messageField, .message, #footer  {
         line-height: 1.5em;
         font-size: 1.6em;
     }
+#notLoggedIn {
+    margin-top: 10px;
+}
+
+.infoBox button {
+    width: 30%;
+    font-size: 2em;
+}
+
+.infoBox span {
+    color: #717171;
+    font-size: 1.5em;
+    font-family: Roboto, sans-serif;
+    line-height: 1em;
+    text-align: center;
+    padding: 10px;
+    width: 24%;
+}
+
+.infoBox input{
+    width: 77%;
+    padding: 5px;
+    border-style: none;
+    border-width: 0px;
+    color: #717171;
+    font-size: 1.5em;
+    font-family: Roboto, sans-serif;
+    line-height: 1em;
+}
+.infoBox #customSubmit {
+    width: 15%;
+    padding: 0px;
+    font-size: 2em;
+}

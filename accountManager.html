@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Everlessy Chatting</title>
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto|Comfortaa' rel='stylesheet' type='text/css'>
+    <!--Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--APIs-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
+    <!--Code-->
+    <script src="accountSystem.js"></script>
+    <script src="accountManager.js"></script>
+  </head>
+  <body>
+    <div id="Titlebox">
+        <section id="details">
+            <h1 id="Title">Everlessly Chatting</h1>
+            <h3 id="subTitle">A realtime messenger</h3>
+        </section>
+        <section id="accountBox">
+            <section id="loginSection">
+                Login<br>
+                <button id="loginWithGoogle">Google</button> <button id="loginWithFacebook">Facebook</button> <button id="loginWithGithub">Github</button>
+            </section>
+            <section id="accountInfo">
+                
+            </section>
+            <button id="logout">Logout</button>
+        </section>
+    </div>
+    <div id="mainContent">
+        <p id="notLoggedIn"> You need to be logged in to edit your account</p>
+        <section id="loggedIn">
+            <h1 class="Title">Account Management</h1>
+            <div class="infoBox">
+                <h1 class="Title">Set Default User Name</h1>
+                <button>Google Name</button> 
+                <button>Facebook Name</button>
+                <button>Twitter Name</button>
+                <br>
+                <button id="customSubmit">Custom</button id="custom"> <input type="text" id="customName">
+            </div>
+        </section>
+    </div>
+       
+    <section id="footer">&copy; Tom Peregrine 2014</section>
+  </body>
+</html>

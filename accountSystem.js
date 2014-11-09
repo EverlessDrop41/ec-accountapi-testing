@@ -1,7 +1,8 @@
+//This script handles most of the account work, it logs users in and out and sets data accordingly
 var fb = new Firebase("https://everlesslychatting.firebaseio.com/");
 var userBase = fb.child("users");
 var authData = fb.getAuth();
-
+var loggedIn =false;
 /*
 An account in JSON
 
@@ -37,7 +38,8 @@ $(document).ready(function(){
     login("github");
   });
   $("#logout").click(function() {
-    fb.unauth();
+      fb.unauth();
+      loggedIn = false;
   });
   accountCheck();
 });
@@ -63,6 +65,7 @@ function accountCheck(){
             updateAccount(userBaseEmail, "google", userId);
             //This will change some data according to the default account
             defaultAccount(false, accountType, userBaseEmail);
+            loggedIn = true;
             break;
           case "github":
             userName = authData.github.username;
@@ -75,6 +78,7 @@ function accountCheck(){
             updateAccount(userBaseEmail, "github", userId);
             //This will change some data according to the default account
             defaultAccount(false, accountType, userBaseEmail);
+            loggedIn = true;
             break;
           case "facebook":
             //Assign data form our auth
@@ -88,9 +92,11 @@ function accountCheck(){
             updateAccount(userBaseEmail, "facebook", userId);
             //This will change some data according to the default account
             defaultAccount(false, accountType, userBaseEmail);
+            loggedIn = true;
             break;
           default :
             $("logout").hide();
+            loggedIn = false;
         }
     }
     else{
