@@ -62,9 +62,7 @@ function accountCheck(){
             //This will add the uid to the firebase
             updateAccount(userBaseEmail, "google", userId);
             //This will change some data according to the default account
-            checkDefaultAccount(false, accountType, userBaseEmail);
-            //Display our data
-            displayAccountInfo();
+            defaultAccount(false, accountType, userBaseEmail);
             break;
           case "github":
             userName = authData.github.username;
@@ -76,9 +74,7 @@ function accountCheck(){
             //This will add the uid to the firebase
             updateAccount(userBaseEmail, "github", userId);
             //This will change some data according to the default account
-            checkDefaultAccount(false, accountType, userBaseEmail);
-            //Display our data
-            displayAccountInfo();
+            defaultAccount(false, accountType, userBaseEmail);
             break;
           case "facebook":
             //Assign data form our auth
@@ -91,9 +87,7 @@ function accountCheck(){
             //This will add the uid to the firebase
             updateAccount(userBaseEmail, "facebook", userId);
             //This will change some data according to the default account
-            checkDefaultAccount(false, accountType, userBaseEmail);
-            //Display our data
-            displayAccountInfo();
+            defaultAccount(false, accountType, userBaseEmail);
             break;
           default :
             $("logout").hide();
@@ -162,12 +156,13 @@ function updateAccount(email,valueToUpdate,data){
     }
 }
 
-function checkDefaultAccount(forceOveride, accountType, email){
+function defaultAccount(forceOveride, accountType, email){
     var dataExists = true;
     if (forceOveride === true){
         //Force an overide of the default values
         userBase.child(email).update({"defaultAccount": accountType}); 
         userBase.child(email).update({"userName": userName});
+        displayAccountInfo();
     }
     else {
         userBase.child(email).child("defaultAccount").once('value',function(snapshot){
@@ -175,16 +170,17 @@ function checkDefaultAccount(forceOveride, accountType, email){
                 //Set defaults if none are set
                 userBase.child(email).update({"defaultAccount": accountType});
                 userBase.child(email).update({"userName": userName});
+                displayAccountInfo();
             }
             else{
                 userBase.child(email).child("userName").once('value',function(snapshot){
                     userName = snapshot.val();
+                    displayAccountInfo();
                 });
             }
         });
     }
 }
-
 
 function login(accountSys){
   switch (accountSys){
@@ -219,6 +215,6 @@ function login(accountSys){
 }
 
 function displayAccountInfo(){
-  accountData = "Hello " + userName + " you are logged in using " + accountType + ".";
+  accountData = "Welcome back " + userName + "!";
   $("#accountInfo").text(accountData);
 }

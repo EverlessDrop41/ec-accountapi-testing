@@ -10,26 +10,49 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
     <!--Code-->
-    <script src="messageHandler.js"></script>
     <script src="accountSystem.js"></script>
   </head>
   <body>
     <div id="Titlebox">
-        <h1 id="Title">Everlessly Chatting</h1>
-        <h3 id="subTitle">A realtime messenger</h3>
+        <section id="details">
+            <h1 id="Title">Everlessly Chatting</h1>
+            <h3 id="subTitle">A realtime messenger</h3>
+        </section>
+        <section id="accountBox">
+            <section id="loginSection">
+                Login<br>
+                <button id="loginWithGoogle">Google</button> <button id="loginWithFacebook">Facebook</button> <button id="loginWithGithub">Github</button>
+            </section>
+            <section id="accountInfo">
+                
+            </section>
+            <button id="logout">Logout</button>
+        </section>
     </div>
-    <div id="loginSection">
-        <button id="loginWithGoogle">Login with Google</button>
-        <button id="loginWithFacebook">Login with Facebook</button>
-        <button id="loginWithGithub">Login with Github</button>
+    <div id="mainContent">
+        <h1 class="Title">Welcome to Everlessly Chatting</h1>
+        
+        <div class="infoBox">
+            <h1 class="Title">What are we about</h1>
+            <img src="img/EverlesslyChatting.png">
+            <p>
+                Everlessly chatting is a free online messenger that updates in realtime. We like to pride ourselves on ease of use by providing one click login and management of your account, by
+                simply loging in with your Google/Facebook/Github account you create an account with us. If those accounts have the same email they'll automatically link up without you having 
+                to do a thing
+            </p>
+        </div>
+        
+        <div class="infoBox">
+            <h1 class="Title">News</h1>
+            <img src="img/News%20Icon.png">
+            <p>
+                We are very close to our first stable release, the account system is complete and chat rooms are on the list. The UI/Design is all but done and I am confident that the whole project
+                will be fully stable by Christmas 2014. To create an account simply login with your Google, Facebook or Github account. An account will be automatically created. If you login with a
+                different account that uses the same email as the first one they will link, e.g. I login with my google account, my email is test@test.com, then I login with my facebook account
+                which has the same email (test@test.com), those accounts are now linked and the same messages and chat rooms can be accessed from both the accounts.
+            </p>
+        </div>  
     </div>
-    <div id="accountInfo"></div>
-    <button id="logout">Logout</button>
-    <br>
-    <div id="messageInputArea"> 
-        <input type="text" placeholder="Message" class="messageField" id="messageInput"></input><button id="sendButton">Submit</button>
-    </div>
-    <div id="messageBox">
-    </div>
+      <section id="footer">&copy; Tom Peregrine 2014</section>
   </body>
 </html>
