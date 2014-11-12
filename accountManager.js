@@ -1,7 +1,7 @@
 //This script used to manage the account editor
 $(document).ready(function() {
     var notLoggedInBox =  $("#notLoggedIn");
-    var loggedInBox = $("loggedInBox");
+    var loggedInBox = $("#loggedInBox");
     fb.onAuth(function () {
         //We do a timeout to make sure logged in is the right value
         setTimeout(function (){
@@ -15,12 +15,13 @@ $(document).ready(function() {
             }
         },500);    
     });
-    
+    //The custom name 
     $("#customSubmit").click(function () {
         var newUserName = $("#customName").val();
         newUserName = validateName(newUserName);
         if (confirm("Do you want to change your display name to " + newUserName + "?")){
-            currentAccount.update({"userName": newUserName});
+            currentAccount.update({"customUserName": newUserName});
+            changeDefaultAccount("custom",userBaseEmail);
         }
     });
     
@@ -29,8 +30,25 @@ $(document).ready(function() {
             $("#customSubmit").click();
         }
     });
+    //External account name
+    $("#googleDefault").click(function (){
+        login("google");
+        console.log(userBaseEmail);
+        changeDefaultAccount("google",userBaseEmail);
+    });
+    $("#facebookDefault").click(function (){
+        login("facebook");
+        changeDefaultAccount("facebook",userBaseEmail);
+    });
+    $("#githubDefault").click(function (){
+        login("github");
+        changeDefaultAccount("github",userBaseEmail);
+    });
+    
 });
 
+
+//Functions
 function validateName(nameToValidate){
     var outputName = "";
     for (var i = 0; i < nameToValidate.length; i++){

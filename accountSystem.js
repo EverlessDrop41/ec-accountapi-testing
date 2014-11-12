@@ -59,12 +59,14 @@ function accountCheck(){
             userEmail = authData.google.email;
             userBaseEmail = convertEmail(userEmail.toString());
             userId = authData.google.id;
+            //Write the username into the database
+            userBase.child(userBaseEmail).update({"googleUserName": userName});
             //Log the account into the database
             currentAccount = userBase.child(userBaseEmail);
             //This will add the uid to the firebase
             updateAccount(userBaseEmail, "google", userId);
             //This will change some data according to the default account
-            defaultAccount(false, accountType, userBaseEmail);
+            defaultAccount(accountType, userBaseEmail);
             loggedIn = true;
             break;
           case "github":
@@ -72,12 +74,14 @@ function accountCheck(){
             userEmail = authData.github.email;
             userBaseEmail = convertEmail(userEmail.toString());
             userId = authData.github.id;
-            //Log the account into the database
+            //Write the username into the database
+            userBase.child(userBaseEmail).update({"githubUserName": userName});
+            //Get the account data from the database
             currentAccount = userBase.child(userBaseEmail);
             //This will add the uid to the firebase
             updateAccount(userBaseEmail, "github", userId);
             //This will change some data according to the default account
-            defaultAccount(false, accountType, userBaseEmail);
+            defaultAccount(accountType, userBaseEmail);
             loggedIn = true;
             break;
           case "facebook":
@@ -86,12 +90,14 @@ function accountCheck(){
             userEmail = authData.facebook.email;
             userBaseEmail = convertEmail(userEmail.toString());
             userId = authData.facebook.id;
+            //Write the username into the database
+            userBase.child(userBaseEmail).update({"facebookUserName": userName});
             //Log the account into the database
             currentAccount = userBase.child(userBaseEmail);
             //This will add the uid to the firebase
             updateAccount(userBaseEmail, "facebook", userId);
             //This will change some data according to the default account
-            defaultAccount(false, accountType, userBaseEmail);
+            defaultAccount(accountType, userBaseEmail);
             loggedIn = true;
             break;
           default :
@@ -162,30 +168,46 @@ function updateAccount(email,valueToUpdate,data){
     }
 }
 
-function defaultAccount(forceOveride, accountType, email){
-    var dataExists = true;
-    if (forceOveride === true){
-        //Force an overide of the default values
-        userBase.child(email).update({"defaultAccount": accountType}); 
-        userBase.child(email).update({"userName": userName});
-        displayAccountInfo();
-    }
-    else {
-        userBase.child(email).child("defaultAccount").once('value',function(snapshot){
-            if (snapshot.val() == null){
-                //Set defaults if none are set
-                userBase.child(email).update({"defaultAccount": accountType});
-                userBase.child(email).update({"userName": userName});
+function defaultAccount(accountType, email){
+    userBase.child(email).child("defaultAccount").once('value',function(snapshot){
+        if (snapshot.val() == null){
+            //Set defaults if none are set
+            userBase.child(email).update({"defaultAccount": accountType});
+            userBase.child(email).update({"userName": userName});
+            displayAccountInfo();
+        }
+        else{       
+            userBase.child(email).child("userName").once('value',function(snapshot){
+                userName = snapshot.val();
                 displayAccountInfo();
-            }
-            else{
-                userBase.child(email).child("userName").once('value',function(snapshot){
-                    userName = snapshot.val();
-                    displayAccountInfo();
-                });
-            }
-        });
-    }
+            });
+        }
+    });
+}
+
+
+function changeDefaultAccount(accountType, email){      
+    userBase.child(email).update({"defaultAccount": accountType});
+    userBase.child(email).once('value',function (snapshot){
+        var account = snapshot;
+        var newUserName;
+        switch (accountType.toLowerCase()){
+            case "custom":
+                newUserName = snapshot.child("customUserName").val();
+                break;
+            case "google":
+                newUserName = snapshot.child("googleUserName").val();
+                break;
+            case "facebook": 
+                newUserName = snapshot.child("facebookUserName").val();
+                break;
+            case "github":
+                newUserName = snapshot.child("githubUserName").val();
+                break;   
+        }
+        userBase.child(email).update({"userName": newUserName});
+    });
+    displayAccountInfo();
 }
 
 function login(accountSys){
