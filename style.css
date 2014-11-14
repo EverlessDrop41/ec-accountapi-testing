@@ -227,3 +227,17 @@ p, #accountDisplayer, .messageField, .message, #footer  {
     padding: 0px;
     font-size: 2em;
 }
+
+.chatRoomBox {
+    width: 90%;
+    margin-left: 4%;
+    border-width: 5px;
+    border-radius: 10px;
+    border-color: #717171;
+    border-style: solid;
+    background-color: #c8e4f8;
+}
+.chatRoomBox .Title {
+    text-align: left;
+    margin-bottom: 1px;
+}

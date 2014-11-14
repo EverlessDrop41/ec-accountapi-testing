@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Everlessy Chatting | Chat Rooms</title>
+    <!--Google Fonts-->
+    <link href='http://fonts.googleapis.com/css?family=Roboto|Comfortaa' rel='stylesheet' type='text/css'>
+    <!--Stylesheets-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!--APIs-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src='https://cdn.firebase.com/js/client/1.1.1/firebase.js'></script>
+    <!--Code-->
+    <script src="accountSystem.js"></script>
+  </head>
+  <body>
+    <div id="Titlebox">
+        <section id="details">
+            <h1 id="Title">Everlessly Chatting</h1>
+            <h3 id="subTitle">A realtime messenger</h3>
+        </section>
+        <section id="accountBox">
+            <section id="loginSection">
+                Login<br>
+                <button id="loginWithGoogle">Google</button> <button id="loginWithFacebook">Facebook</button> <button id="loginWithGithub">Github</button>
+            </section>
+            <section id="loggedIn">
+                <section id="accountInfo">
+                </section>
+                <br>
+                <button id="logout">Logout</button>
+                <button id="manageAccount">Manage</button>
+            </section>
+        </section>
+    </div>
+    <div id="mainContent">
+        <h1 class="Title">Your Chat Rooms</h1>
+        <div id="chatRoomContainer">
+            <div class="chatRoomBox">
+                <h2 class="Title">Cool Dude</h2>
+                <br>
+                <p class="lastMsg"> Hi, how you doing?</p>
+            </div>
+        </div>
+    </div>
+      <section id="footer">&copy; Tom Peregrine 2014</section>
+  </body>
+</html>
