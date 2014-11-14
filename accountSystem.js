@@ -22,35 +22,40 @@ var userName = "";
 var userEmail = "";
 var accountType = "";
 
+var accountManagerLocation = "\accountManager.html"
+
 fb.onAuth(function (authInfo ) {
     authData = fb.getAuth();
     accountCheck();
 });
 
 $(document).ready(function(){
-  $("#loginWithGoogle").click(function() {
-    login("google");
-  });
-  $("#loginWithFacebook").click(function() {
-    login("facebook");
-  });
-  $("#loginWithGithub").click(function() {
-    login("github");
-  });
-  $("#logout").click(function() {
-      fb.unauth();
-      loggedIn = false;
-  });
+    $("#loginWithGoogle").click(function() {
+        login("google");
+    });
+    $("#loginWithFacebook").click(function() {
+        login("facebook");
+    });
+    $("#loginWithGithub").click(function() {
+        login("github");
+    });
+    $("#logout").click(function() {
+        fb.unauth();
+        loggedIn = false;
+    });
+    $("#manageAccount").click(function() {
+        window.location.href = accountManagerLocation;
+        console.log("hi");
+    });
+    
   accountCheck();
 });
 
 function accountCheck(){
     if(authData){
         //User is logged in
-        $("#accountInfo").show();
+        $("#loggedIn").show();
         $("#loginSection").hide();
-        $("#messageInputArea").show();
-        $("#logout").show();
         accountType = authData.provider;
         switch (accountType){
           case "google":
@@ -107,9 +112,7 @@ function accountCheck(){
     }
     else{
         $("#loginSection").show();
-        $("#messageInputArea").hide();
-        $("#logout").hide();
-        $("#accountInfo").hide();
+        $("#loggedIn").hide();
     }
 }
 
